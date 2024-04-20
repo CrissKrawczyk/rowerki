@@ -12,7 +12,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "user")
+@Table(name = "users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -33,5 +33,5 @@ public class User {
     @Column(name = "last_name", nullable = false)
     private String lastName;
 
-    private boolean loggedIn;   //niezbyt wiem po co, patrzę na rzeczy z doca
+    //private Boolean loggedIn;   //niezbyt wiem po co, patrzę na rzeczy z doca
 }
