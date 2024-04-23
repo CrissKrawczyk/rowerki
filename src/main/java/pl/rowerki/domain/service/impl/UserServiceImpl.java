@@ -38,5 +38,27 @@ public class UserServiceImpl implements UserService {
         return users.stream().map((user) -> UserMapper.mapToUserDto(user)).collect(Collectors.toList());
     }
 
+    @Override
+    public UserDto updateUser(Long id, UserDto updatedUser) {
+        User user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User with id " + id + " not found"));
+        user.setFirstName(updatedUser.getFirstName());
+        user.setLastName(updatedUser.getLastName());
+        user.setEmail(updatedUser.getEmail());
+        user.setPassword(updatedUser.getPassword());
+        user.setLogin(updatedUser.getLogin());
+        user.setIsAdmin(updatedUser.getIsAdmin());
+
+        User updatedUserObj = userRepository.save(user);
+
+        return UserMapper.mapToUserDto(updatedUserObj);
+    }
+
+    @Override
+    public void deleteUser(Long id) {
+        User user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User with id " + id + " not found"));
+
+        userRepository.delete(user);
+    }
+
 
 }

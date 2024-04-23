@@ -6,24 +6,24 @@ import pl.rowerki.domain.entity.User;
 public class UserMapper {
     public static UserDto mapToUserDto(User user){
         return new UserDto(
-                user.getId(),
+                user.getUserId(),
                 user.getLogin(),
                 user.getPassword(),
                 user.getEmail(),
                 user.getFirstName(),
-                user.getLastName()
-                //,user.getLoggedIn()
+                user.getLastName(),
+                user.getIsAdmin()
         );
     }
     public static User mapToUser(UserDto userDto){
         return new User(
-                userDto.getId(),
+                userDto.getUserId(),
                 userDto.getLogin(),
                 userDto.getPassword(),
                 userDto.getEmail(),
                 userDto.getFirstName(),
-                userDto.getLastName()
-                //,userDto.getLoggedIn()
+                userDto.getLastName(),
+                userDto.getIsAdmin()
         );
     }
 }

@@ -36,4 +36,20 @@ public class UserController {
         List<UserDto> users = userService.getAllUsers();
         return ResponseEntity.ok(users);
     }
+
+    //update user by id REST API
+    @PutMapping("{id}")
+    public ResponseEntity<UserDto> updateUserById(@PathVariable("id") Long userId, @RequestBody UserDto updatedUser) {
+        UserDto userDto = userService.updateUser(userId, updatedUser);
+        return ResponseEntity.ok(userDto);
+    }
+
+    //delete user by id REST API
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<String> deleteUserById(@PathVariable("id") Long userId) {
+        userService.deleteUser(userId);
+        return ResponseEntity.ok("Employee deleted successfully");
+    }
+
 }

@@ -17,7 +17,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", unique = true, updatable = false, nullable = false)
-    private Long id;
+    private Long userId;
 
     @Column(name = "login", unique = true, updatable = false, nullable = false)
     private String login;
@@ -33,5 +33,6 @@ public class User {
     @Column(name = "last_name", nullable = false)
     private String lastName;
 
-    //private Boolean loggedIn;   //niezbyt wiem po co, patrzę na rzeczy z doca
+    @Column(name = "is_admin")
+    private Boolean isAdmin;   //niezbyt wiem po co, patrzę na rzeczy z doca
 }
