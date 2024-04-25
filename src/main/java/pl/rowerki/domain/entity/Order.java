@@ -9,20 +9,23 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "vehicles")
-public class Vehicle {
+@NoArgsConstructor
+@Table(name = "orders")
+public class Order {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", unique = true, updatable = false, nullable = false)
-    private Long vehicleId;
+    private Long orderId;
 
     @Column
-    private Boolean uszkodzony;
+    private Boolean isFinalized;
 
-    @Column(name = "location_id")
-    private Long locationId;
+    @Column
+    private Double price;
 
+    @OneToOne
+    @JoinColumn(name = "reservation_id", referencedColumnName = "id")
+    private Reservation reservation;
 }

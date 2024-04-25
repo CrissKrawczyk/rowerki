@@ -6,7 +6,7 @@ import pl.rowerki.domain.entity.Vehicle;
 public class VehicleMapper {
     public static VehicleDto mapToVehicleDto(Vehicle vehicle) {
         return new VehicleDto(
-                vehicle.getId(),
+                vehicle.getVehicleId(),
                 vehicle.getUszkodzony(),
                 vehicle.getLocationId()
         );

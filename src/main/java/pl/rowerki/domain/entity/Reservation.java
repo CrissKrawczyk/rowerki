@@ -1,10 +1,9 @@
 package pl.rowerki.domain.entity;
 
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import org.springframework.boot.context.properties.bind.DefaultValue;
 
 import java.time.LocalDateTime;
 
@@ -35,5 +34,4 @@ public class Reservation {
 
     @Column(name = "phone", updatable = false, nullable = false)
     private String phone;
-
 }
