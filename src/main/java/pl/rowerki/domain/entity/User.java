@@ -34,5 +34,5 @@ public class User {
     private String lastName;
 
     @Column(name = "is_admin")
-    private Boolean isAdmin;   //niezbyt wiem po co, patrzę na rzeczy z doca
+    private Boolean isAdmin = false;   //niezbyt wiem po co, patrzę na rzeczy z doca
 }
