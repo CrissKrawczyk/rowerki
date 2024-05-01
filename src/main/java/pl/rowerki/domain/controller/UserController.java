@@ -51,5 +51,15 @@ public class UserController {
         userService.deleteUser(userId);
         return ResponseEntity.ok("Employee deleted successfully");
     }
+    @GetMapping("{login}/{password}")
+    public ResponseEntity<UserDto> getUserByLoginPassword(@PathVariable("login") String userLogin, @PathVariable("password") String userPassword) {
+        UserDto userDto = userService.getUserByLoginPassword(userLogin, userPassword);
+        if(userDto != null) {
+            return ResponseEntity.ok(userDto);
+        }else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
+
 
 }

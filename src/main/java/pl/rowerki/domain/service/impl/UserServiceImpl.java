@@ -60,5 +60,14 @@ public class UserServiceImpl implements UserService {
         userRepository.delete(user);
     }
 
+    @Override
+    public UserDto getUserByLoginPassword(String login, String password) {
+        User user = userRepository.findByLogin(login);
+        if (user != null && user.getPassword().equals(password)) {
+            return UserMapper.mapToUserDto(user);
+        }else
+            return null;
+    }
+
 
 }
