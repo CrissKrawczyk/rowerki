@@ -19,7 +19,7 @@ public class Order {
     @Column(name = "id", unique = true, updatable = false, nullable = false)
     private Long orderId;
 
-    @Column
+    @Column(name = "is_finalized")
     private Boolean isFinalized;
 
     @Column

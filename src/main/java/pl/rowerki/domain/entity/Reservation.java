@@ -29,7 +29,7 @@ public class Reservation {
     @Column(name = "time_end", nullable = false)
     private LocalDateTime timeEnd;
 
-    @Column(name = "email", updatable = false, nullable = false)
+    @Column(name = "email", updatable = false)
     private String email;
 
     @Column(name = "phone", updatable = false, nullable = false)
