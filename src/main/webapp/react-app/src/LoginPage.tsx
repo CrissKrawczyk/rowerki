@@ -20,7 +20,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
 
     const handleLogin = () => {
         // wealidacja loginu i hasła
-        fetch(`http://localhost:8080/api/users/${login}/${password}`)
+        fetch(`/api/users/${login}/${password}`)
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Invalid login or password');

@@ -18,7 +18,7 @@ function GetAllUsersPage() {
     useEffect(() => {
         setLoading(true);
 
-        fetch('http://localhost:8080/api/users')
+        fetch('/api/users')
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
