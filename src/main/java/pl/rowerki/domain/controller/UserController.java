@@ -1,8 +1,10 @@
 package pl.rowerki.domain.controller;
 
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import pl.rowerki.domain.dto.UserDto;
 import pl.rowerki.domain.service.UserService;
@@ -14,13 +16,17 @@ import java.util.List;
 @RequestMapping("/api/users")
 public class UserController {
 
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
     private UserService userService;
 
     //Add user REST API
     @PostMapping
     public ResponseEntity<UserDto> createUser(@RequestBody UserDto userDto) {
-       UserDto savedUser = userService.createUser(userDto);
-       return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
+        userDto.setPassword(passwordEncoder.encode(userDto.getPassword()));
+        UserDto savedUser = userService.createUser(userDto);
+        return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
     }
 
     //Get user by id REST API
@@ -51,12 +57,13 @@ public class UserController {
         userService.deleteUser(userId);
         return ResponseEntity.ok("Employee deleted successfully");
     }
+
     @GetMapping("{login}/{password}")
     public ResponseEntity<UserDto> getUserByLoginPassword(@PathVariable("login") String userLogin, @PathVariable("password") String userPassword) {
         UserDto userDto = userService.getUserByLoginPassword(userLogin, userPassword);
-        if(userDto != null) {
+        if (userDto != null) {
             return ResponseEntity.ok(userDto);
-        }else {
+        } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
