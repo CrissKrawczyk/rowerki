@@ -6,7 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-import pl.rowerki.domain.dto.UserDto;
+import pl.rowerki.domain.entity.User;
 import pl.rowerki.domain.service.UserService;
 
 import java.util.List;
@@ -23,31 +23,31 @@ public class UserController {
 
     //Add user REST API
     @PostMapping
-    public ResponseEntity<UserDto> createUser(@RequestBody UserDto userDto) {
-        userDto.setPassword(passwordEncoder.encode(userDto.getPassword()));
-        UserDto savedUser = userService.createUser(userDto);
+    public ResponseEntity<User> createUser(@RequestBody User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        User savedUser = userService.createUser(user);
         return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
     }
 
     //Get user by id REST API
     @GetMapping("{id}")
-    public ResponseEntity<UserDto> getUserById(@PathVariable("id") Long userId) {
-        UserDto userDto = userService.getUserById(userId);
-        return ResponseEntity.ok(userDto);
+    public ResponseEntity<User> getUserById(@PathVariable("id") Long userId) {
+        User user = userService.getUserById(userId);
+        return ResponseEntity.ok(user);
     }
 
     //Get all users REST API
     @GetMapping
-    public ResponseEntity<List<UserDto>> getAllUsers() {
-        List<UserDto> users = userService.getAllUsers();
+    public ResponseEntity<List<User>> getAllUsers() {
+        List<User> users = userService.getAllUsers();
         return ResponseEntity.ok(users);
     }
 
     //update user by id REST API
     @PutMapping("{id}")
-    public ResponseEntity<UserDto> updateUserById(@PathVariable("id") Long userId, @RequestBody UserDto updatedUser) {
-        UserDto userDto = userService.updateUser(userId, updatedUser);
-        return ResponseEntity.ok(userDto);
+    public ResponseEntity<User> updateUserById(@PathVariable("id") Long userId, @RequestBody User updatedUser) {
+        User user = userService.updateUser(userId, updatedUser);
+        return ResponseEntity.ok(user);
     }
 
     //delete user by id REST API
@@ -59,10 +59,10 @@ public class UserController {
     }
 
     @GetMapping("{login}/{password}")
-    public ResponseEntity<UserDto> getUserByLoginPassword(@PathVariable("login") String userLogin, @PathVariable("password") String userPassword) {
-        UserDto userDto = userService.getUserByLoginPassword(userLogin, userPassword);
-        if (userDto != null) {
-            return ResponseEntity.ok(userDto);
+    public ResponseEntity<User> getUserByLoginPassword(@PathVariable("login") String userLogin, @PathVariable("password") String userPassword) {
+        User user = userService.getUserByLoginPassword(userLogin, userPassword);
+        if (user != null) {
+            return ResponseEntity.ok(user);
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }

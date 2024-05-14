@@ -2,15 +2,12 @@ package pl.rowerki.domain.service.impl;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import pl.rowerki.domain.dto.UserDto;
 import pl.rowerki.domain.entity.User;
 import pl.rowerki.domain.exception.ResourceNotFoundException;
-import pl.rowerki.domain.mapper.UserMapper;
 import pl.rowerki.domain.repository.UserRepository;
 import pl.rowerki.domain.service.UserService;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -19,27 +16,24 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
 
     @Override
-    public UserDto createUser(UserDto userDto) {
-        User user = UserMapper.mapToUser(userDto);
-        User savedUser = userRepository.save(user);
-        return UserMapper.mapToUserDto(savedUser);
+    public User createUser(User user) {
+        return userRepository.save(user);
     }
 
     @Override
-    public UserDto getUserById(Long userId) {
+    public User getUserById(Long userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("User with id " + userId + " not found"));
-        return UserMapper.mapToUserDto(user);
+        return user;
     }
 
     @Override
-    public List<UserDto> getAllUsers() {
-        List<User> users = userRepository.findAll();
-        return users.stream().map((user) -> UserMapper.mapToUserDto(user)).collect(Collectors.toList());
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
     }
 
     @Override
-    public UserDto updateUser(Long id, UserDto updatedUser) {
+    public User updateUser(Long id, User updatedUser) {
         User user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User with id " + id + " not found"));
         user.setFirstName(updatedUser.getFirstName());
         user.setLastName(updatedUser.getLastName());
@@ -48,9 +42,7 @@ public class UserServiceImpl implements UserService {
         user.setLogin(updatedUser.getLogin());
         user.setIsAdmin(updatedUser.getIsAdmin());
 
-        User updatedUserObj = userRepository.save(user);
-
-        return UserMapper.mapToUserDto(updatedUserObj);
+        return userRepository.save(user);
     }
 
     @Override
@@ -61,11 +53,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDto getUserByLoginPassword(String login, String password) {
+    public User getUserByLoginPassword(String login, String password) {
         User user = userRepository.findByLogin(login);
         if (user != null && user.getPassword().equals(password)) {
-            return UserMapper.mapToUserDto(user);
-        }else
+            return user;
+        } else
             return null;
     }
 

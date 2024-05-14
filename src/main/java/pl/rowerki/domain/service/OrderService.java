@@ -1,7 +1,7 @@
 package pl.rowerki.domain.service;
 
-import pl.rowerki.domain.dto.OrderDto;
+import pl.rowerki.domain.entity.Order;
 
 public interface OrderService {
-    OrderDto createOrder(OrderDto orderDto);
+    Order createOrder(Order order);
 }

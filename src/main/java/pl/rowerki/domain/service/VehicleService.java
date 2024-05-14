@@ -1,7 +1,7 @@
 package pl.rowerki.domain.service;
 
-import pl.rowerki.domain.dto.VehicleDto;
+import pl.rowerki.domain.entity.Vehicle;
 
 public interface VehicleService {
-    VehicleDto createVehicle(VehicleDto vehicleDto);
+    Vehicle createVehicle(Vehicle vehicle);
 }

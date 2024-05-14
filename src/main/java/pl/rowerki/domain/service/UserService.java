@@ -1,20 +1,20 @@
 package pl.rowerki.domain.service;
 
-import pl.rowerki.domain.dto.UserDto;
+import pl.rowerki.domain.entity.User;
 
 import java.util.List;
 
 public interface UserService {
-    UserDto createUser(UserDto userDto);
+    User createUser(User user);
 
-    UserDto getUserById(Long id);
+    User getUserById(Long id);
 
-    List<UserDto> getAllUsers();
+    List<User> getAllUsers();
 
-    UserDto updateUser(Long id, UserDto updatedUser);
+    User updateUser(Long id, User updatedUser);
 
     void deleteUser(Long id);
 
-    UserDto getUserByLoginPassword(String login, String password);
+    User getUserByLoginPassword(String login, String password);
 
 }
