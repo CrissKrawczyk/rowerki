@@ -21,7 +21,9 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests((requests) -> requests
                         .dispatcherTypeMatchers(DispatcherType.FORWARD, DispatcherType.ERROR).permitAll()
                         .requestMatchers("/", "/index.html", "/static/**").permitAll()
-                        .requestMatchers("/service").authenticated()
+                        .requestMatchers("/service/admin/**").hasAuthority("admin")
+                        .requestMatchers("/service/employee/**").hasAuthority("employee")
+                        .requestMatchers("/service/**").authenticated()
                         .requestMatchers("/api/**").permitAll())
                 .formLogin((form) -> form
                         .defaultSuccessUrl("/service", true)

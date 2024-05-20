@@ -19,7 +19,6 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
     const [error, setError] = useState('');
 
     const handleLogin = () => {
-        // wealidacja loginu i hasła
         fetch(`/api/users/${login}/${password}`)
             .then(response => {
                 if (!response.ok) {

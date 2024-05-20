@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import './App.css';
 
 function CreateUserPage() {
     const [login, setLogin] = useState('');
@@ -7,7 +6,7 @@ function CreateUserPage() {
     const [email, setEmail] = useState('');
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
-    const [isAdmin, setIsAdmin] = useState(false); // Domyślnie false
+    const [isAdmin, setIsAdmin] = useState(false);
 
     const handleCreateUser = () => {
         const userData = {
@@ -19,7 +18,7 @@ function CreateUserPage() {
             isAdmin
         };
 
-        fetch('http://localhost:8080/api/users', {
+        fetch('/api/users', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -30,11 +29,9 @@ function CreateUserPage() {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
-                // Przetwarzanie odpowiedzi, jeśli jest potrzebne
             })
             .catch(error => {
                 console.error('Error creating user:', error);
-                // Obsługa błędu, np. wyświetlenie komunikatu dla użytkownika
             });
     };
 

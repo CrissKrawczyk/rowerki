@@ -4,12 +4,15 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import pl.rowerki.domain.entity.User;
 import pl.rowerki.domain.service.UserService;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 @AllArgsConstructor
 @RestController
@@ -21,7 +24,6 @@ public class UserController {
 
     private UserService userService;
 
-    //Add user REST API
     @PostMapping
     public ResponseEntity<User> createUser(@RequestBody User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -29,28 +31,23 @@ public class UserController {
         return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
     }
 
-    //Get user by id REST API
     @GetMapping("{id}")
     public ResponseEntity<User> getUserById(@PathVariable("id") Long userId) {
         User user = userService.getUserById(userId);
         return ResponseEntity.ok(user);
     }
 
-    //Get all users REST API
     @GetMapping
     public ResponseEntity<List<User>> getAllUsers() {
         List<User> users = userService.getAllUsers();
         return ResponseEntity.ok(users);
     }
 
-    //update user by id REST API
     @PutMapping("{id}")
     public ResponseEntity<User> updateUserById(@PathVariable("id") Long userId, @RequestBody User updatedUser) {
         User user = userService.updateUser(userId, updatedUser);
         return ResponseEntity.ok(user);
     }
-
-    //delete user by id REST API
 
     @DeleteMapping("{id}")
     public ResponseEntity<String> deleteUserById(@PathVariable("id") Long userId) {
@@ -66,6 +63,13 @@ public class UserController {
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
+    }
+
+    @GetMapping("isAdmin")
+    @ResponseBody
+    public Map<String, Boolean> isCurrentUserAdmin(Authentication authentication) {
+        boolean isAdmin = authentication.getAuthorities().stream().anyMatch(role -> role.getAuthority().equals("admin"));
+        return Collections.singletonMap("isAdmin", isAdmin);
     }
 
 
