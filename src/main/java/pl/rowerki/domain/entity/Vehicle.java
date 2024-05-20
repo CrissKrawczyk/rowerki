@@ -22,7 +22,8 @@ public class Vehicle {
     @Column
     private Boolean uszkodzony;
 
-    @Column(name = "location_id")
-    private Long locationId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "location_id")
+    private Location location;
 
 }
