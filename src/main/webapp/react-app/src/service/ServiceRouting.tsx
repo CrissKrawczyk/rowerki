@@ -4,6 +4,8 @@ import ServiceMainPage from './ServiceMainPage';
 import AdminPage from './admin/AdminPage/AdminPage';
 import CreateUserPage from "./admin/CreateUserPage/CreateUserPage";
 import EmployeePage from './employee/EmployeePage/EmployeePage';
+import LocationsPage from './locations/LocationsPage/LocationsPage';
+import LocationForm from './locations/LocationsPage/LocationForm';
 
 function ServiceRouting() {
   let navigate = useNavigate();
@@ -33,8 +35,11 @@ function ServiceRouting() {
       <Route path='/admin/createUser' element={<CreateUserPage />} />
       <Route path='/admin' element={<AdminPage />} />
       <Route path='/employee' element={<EmployeePage />} />
+      <Route path='/location' element={<LocationsPage />} />
+      <Route path='/locationForm' element={<LocationForm />} />
+      <Route path='/locationForm/:id' element={<LocationForm />} />
     </Routes>
-    <button onClick={() => navigate(-1)}>
+    <button className ="btn btn-info" onClick={() => navigate(-1)}>
       Wróć
     </button>
   </>

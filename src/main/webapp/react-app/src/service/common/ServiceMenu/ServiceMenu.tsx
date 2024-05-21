@@ -10,11 +10,13 @@ interface ServiceMenuProps {
 function ServiceMenu(props: ServiceMenuProps) {
     const { title, options } = props;
 
-    return <div className='menuBody'>
+    return <div className='container'>
         <h2 className='title'>{title}</h2>
-        {
-            options.map(option => <ServiceMenuOption {...option} />)
-        }
+        <ul>
+            {
+                options.map(option => <li><ServiceMenuOption {...option} /></li>)
+            }
+        </ul>
     </div>
 
 }
