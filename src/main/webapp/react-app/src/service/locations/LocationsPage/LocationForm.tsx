@@ -29,7 +29,7 @@ function LocationForm(){
                  })
                  .catch(error => {
                      console.error('Error fetching data:', error);
-                     setLoading(false); // Upewnij się, że zawsze ustawiasz loading na false, nawet w przypadku błędu.
+                     setLoading(false);
                  });
             },[]);
 
@@ -51,7 +51,7 @@ function LocationForm(){
                     })
                     .catch(error => {
                         console.error('Error fetching data:', error);
-                        setLoading(false); // Upewnij się, że zawsze ustawiasz loading na false, nawet w przypadku błędu.
+                        setLoading(false);
                     });
             }
 
@@ -66,7 +66,7 @@ function LocationForm(){
                   })
                   .catch(error => {
                       console.error('Error fetching data:', error);
-                      setLoading(false); // Upewnij się, że zawsze ustawiasz loading na false, nawet w przypadku błędu.
+                      setLoading(false);
                   });
         }
 
