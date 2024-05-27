@@ -5,7 +5,7 @@ import AdminPage from './admin/AdminPage/AdminPage';
 import CreateUserPage from "./admin/CreateUserPage/CreateUserPage";
 import EmployeePage from './employee/EmployeePage/EmployeePage';
 import LocationsPage from './locations/LocationsPage/LocationsPage';
-import LocationForm from './locations/LocationsPage/LocationForm';
+import LocationForm from './locations/LocationsForm/LocationForm';
 
 function ServiceRouting() {
   let navigate = useNavigate();

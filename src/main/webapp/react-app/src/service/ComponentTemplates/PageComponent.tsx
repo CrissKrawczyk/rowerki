@@ -4,6 +4,7 @@ import {useNavigate} from 'react-router-dom';
 interface PageComponentProps{
     fetchLink: string;
     formLink: string;
+    select: string[];
     colNames: string[];
     id: string;
 }
@@ -24,6 +25,7 @@ function PageComponent<V>(props: PageComponentProps){
                         return response.json();
                     })
                     .then(data => {
+                        data.forEach((row: any)=>Object.keys(row).forEach((col)=>props.select.includes(col) || delete row[col]));
                         setRows(data);
                         setLoading(false);
                     })
