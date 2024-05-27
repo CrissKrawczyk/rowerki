@@ -26,6 +26,7 @@ function PageComponent<V>(props: PageComponentProps){
                     })
                     .then(data => {
                         data.forEach((row: any)=>Object.keys(row).forEach((col)=>props.select.includes(col) || delete row[col]));
+                        console.log(data);
                         setRows(data);
                         setLoading(false);
                     })
@@ -46,7 +47,7 @@ function PageComponent<V>(props: PageComponentProps){
             </thead>
             <tbody>
                 {
-                    rows.map((row)=>(<tr onClick={()=>navigator("../" + props.formLink + "/" + row[props.id as keyof V])}>{Object.values(row).map((val)=>(<td>{val}</td>))}</tr>))
+                    rows.map((row)=>(<tr onClick={()=>navigator("../" + props.formLink + "/" + row[props.id as keyof V])}>{Object.values(row).map((val)=>(<td>{typeof val == "boolean" ? String(val) : val}</td>))}</tr>))
                 }
             </tbody>
         </table>);
