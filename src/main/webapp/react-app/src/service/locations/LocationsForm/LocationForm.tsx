@@ -1,19 +1,32 @@
-import React, { useEffect, useState } from 'react';
-import {useParams, useNavigate} from 'react-router-dom';
+import React from 'react';
 import FormComponent from '../../ComponentTemplates/FormComponent';
 
-interface Location{
+interface Location {
     locationId: number;
     name: string;
     city: string;
     street: string;
 }
 
-function LocationForm(){
+function LocationForm() {
 
-        return(
-            <div className="container border border-primary border-3 p-3 mt-3 rounded">
-                <FormComponent<Location> fetchLink = "locations" createForm = {["name", "city", "street"]} inputs = {["Nazwa Punktu", "Miasto", "Ulica"]} />
-            </div>);
-    }
+    return (
+        <div className="container border border-primary border-3 p-3 mt-3 rounded">
+            <FormComponent<Location> fetchLink="locations" fields={[
+                {
+                    idn: "name",
+                    placeholder: "Nazwa Punktu",
+                    type: "string"
+                }, {
+                    idn: "city",
+                    placeholder: "Miasto",
+                    type: "string"
+                }, {
+                    idn: "street",
+                    placeholder: "Ulica",
+                    type: "string"
+                }
+            ]} />
+        </div>);
+}
 export default LocationForm;

@@ -30,6 +30,9 @@ public class Location {
     @Column(name = "street")
     private String street;
 
+    @Column(name = "streetNum")
+    private Integer streetNum;
+
     @OneToMany(mappedBy = "location", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Vehicle> vehicles = new ArrayList<Vehicle>();
 }
