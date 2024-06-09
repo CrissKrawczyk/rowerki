@@ -5,6 +5,11 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.List;
 
 @Entity
 @Getter
@@ -23,9 +28,34 @@ public class Order {
     private Boolean isFinalized;
 
     @Column
-    private Double price;
+    private Float price;
 
-    @OneToOne
-    @JoinColumn(name = "reservation_id", referencedColumnName = "id")
-    private Reservation reservation;
+    @ManyToOne
+    @JoinColumn(name = "location_id")
+    private Location location;
+
+    @DateTimeFormat(pattern = "HH:mm:ss")
+    @Column
+    private LocalTime startTime;
+
+    @DateTimeFormat(pattern = "HH:mm:ss")
+    @Column
+    private LocalTime endTime;
+
+    @DateTimeFormat(pattern = "DD-MM-YYYY")
+    @Column
+    private LocalDate orderDate;
+
+    @ManyToMany
+    @JoinTable(
+            name = "vehicle_in_order",
+            joinColumns = @JoinColumn(name = "order_id"),
+            inverseJoinColumns = @JoinColumn(name = "vehicle_id"))
+    private List<Vehicle> vehicles;
+
+    @PrePersist
+    private void setVehiclesAsUsed() {
+        for (Vehicle vehicle : vehicles)
+            vehicle.setIsReady(false);
+    }
 }

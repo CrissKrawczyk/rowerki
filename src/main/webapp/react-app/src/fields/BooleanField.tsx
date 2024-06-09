@@ -13,6 +13,7 @@ function BooleanField(props: BooleanFieldProps) {
 
     return (<div>
         <div>
+            {field.caption && <p>{field.caption}</p>}
             <input
                 type={'checkbox'}
                 placeholder={field.placeholder}

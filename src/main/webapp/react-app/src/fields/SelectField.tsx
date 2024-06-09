@@ -5,7 +5,7 @@ import { FormField } from '../service/ComponentTemplates/FormComponent';
 
 interface SelectFieldProps {
     field: FormField;
-    value: number | string;
+    value?: number | string;
     onChange: (value: number | string) => void
 }
 
@@ -13,6 +13,7 @@ function SelectField(props: SelectFieldProps) {
     const { field, value, onChange } = props;
 
     return (<div className="row mb-2">
+        {field.caption && <p>{field.caption}</p>}
         <div className="col">
             <FormControl fullWidth>
                 <InputLabel id={field.idn + "-label"}>{field.caption}</InputLabel>

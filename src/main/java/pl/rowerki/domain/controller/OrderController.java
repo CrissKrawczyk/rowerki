@@ -1,25 +1,52 @@
 package pl.rowerki.domain.controller;
 
-import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
+import pl.rowerki.domain.entity.Location;
 import pl.rowerki.domain.entity.Order;
-import pl.rowerki.domain.service.OrderService;
+import pl.rowerki.domain.entity.WorkDay;
+import pl.rowerki.domain.service.impl.OrderService;
+import pl.rowerki.domain.service.impl.WorkDayService;
 
-@AllArgsConstructor
-@RestController
+import java.util.HashMap;
+import java.util.List;
+
+@Controller
 @RequestMapping("/api/orders")
 public class OrderController {
+
+    @Autowired
     private OrderService orderService;
 
-    //Add Order REST API
-    @PostMapping
-    public ResponseEntity<Order> createOrder(@RequestBody Order order) {
-        Order savedOrder = orderService.createOrder(order);
+    @Autowired
+    private WorkDayService workDayService;
+
+    @RequestMapping(value = "/startNewOrder", method = RequestMethod.POST,
+            consumes = {"application/json"})
+    @ResponseBody
+    public ResponseEntity<Order> createOrder(@RequestBody HashMap<String, Object> dataHashMap) {
+        Order savedOrder = orderService.createOrder(dataHashMap);
         return new ResponseEntity<>(savedOrder, HttpStatus.CREATED);
+    }
+
+    @RequestMapping(value = "/currentOrders")
+    @ResponseBody
+    public ResponseEntity<List<Order>> getCurrentOrders(Authentication authentication) {
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        WorkDay currentWorkDay = workDayService.getCurrentWorkDay(userDetails);
+        if (currentWorkDay == null)
+            return ResponseEntity.ok(null);
+        Location currentLocation = currentWorkDay.getLocation();
+        return ResponseEntity.ok(orderService.getActiveOrdersInLocation(currentLocation));
+    }
+
+    @RequestMapping("/finalizeOrder/{id}")
+    public void getUserById(@PathVariable("id") Long orderId) {
+        orderService.endOrder(orderId);
     }
 }

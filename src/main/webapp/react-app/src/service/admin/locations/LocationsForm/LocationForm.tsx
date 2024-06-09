@@ -1,5 +1,5 @@
 import React from 'react';
-import FormComponent from '../../ComponentTemplates/FormComponent';
+import FormComponent from '../../../ComponentTemplates/FormComponent';
 
 interface Location {
     locationId: number;

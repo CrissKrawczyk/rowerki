@@ -1,5 +1,7 @@
 package pl.rowerki.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,8 +24,23 @@ public class Vehicle {
     @Column
     private Boolean uszkodzony;
 
+    @Column(name = "is_ready")
+    private Boolean isReady;
+
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "location_id")
     private Location location;
+
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "vehicle_kind_id")
+    private VehicleKind kind;
+
+    @Transient
+    private Long vehicle_kind_id_dup;
+
+    @Transient
+    private Long vehicle_location_id_dup;
 
 }

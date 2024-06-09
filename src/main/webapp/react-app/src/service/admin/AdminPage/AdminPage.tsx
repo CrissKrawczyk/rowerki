@@ -6,7 +6,10 @@ function AdminPage() {
         {
             text: "Dodaj użytkownika",
             linkTo: "createUser"
-        }
+        },
+        { text: "Wyświetl Punkty", linkTo: "location" },
+        { text: "Wyświetl Pojazdy", linkTo: "vehicle" },
+        { text: "Wyświetl Rodzaje Pojazdów", linkTo: "vehicleKinds" }
     ]} />
 }
 

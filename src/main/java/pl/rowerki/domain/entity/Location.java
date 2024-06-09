@@ -1,5 +1,6 @@
 package pl.rowerki.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -33,6 +34,7 @@ public class Location {
     @Column(name = "streetNum")
     private Integer streetNum;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "location", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Vehicle> vehicles = new ArrayList<Vehicle>();
 }

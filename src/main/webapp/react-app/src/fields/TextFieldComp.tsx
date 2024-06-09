@@ -13,11 +13,13 @@ function TextFieldComp(props: TextFieldProps) {
     const { field, value, onChange } = props;
 
     return (<div className="row mb-2">
+        {field.caption && <p>{field.caption}</p>}
         <div className="col">
             <TextField className={`form-control`}
                 placeholder={field.placeholder}
                 id={field.idn}
                 value={value}
+                title={field.placeholder}
                 onChange={e => onChange(e.target.value)} />
         </div>
     </div>

@@ -23,6 +23,7 @@ function NumberField(props: NumberFieldProps) {
     }, [innerValue])
 
     return (<div className="row mb-2">
+        {field.caption && <p>{field.caption}</p>}
         <div className="col">
             <TextField
                 className={`form-control`}

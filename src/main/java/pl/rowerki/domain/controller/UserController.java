@@ -8,7 +8,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import pl.rowerki.domain.entity.User;
-import pl.rowerki.domain.service.UserService;
+import pl.rowerki.domain.service.impl.UserService;
 
 import java.util.Collections;
 import java.util.List;
