@@ -31,11 +31,10 @@ public class NewOrderData {
     private boolean isFullHour;
     private Map<VehicleKind, Integer> usedKinds = new HashMap<>();
 
-    public NewOrderData(HashMap<String, Object> newOrderData) {
-        this.locationService = ContextAwareClass.getBean(LocationService.class);
+    public NewOrderData(HashMap<String, Object> newOrderData, Location currrentLocation) {
         this.vehicleKindService = ContextAwareClass.getBean(VehicleKindService.class);
         this.vehicleRepository = ContextAwareClass.getBean(VehicleRepository.class);
-        this.location = locationService.getLocationById(Long.valueOf((Integer)newOrderData.get("locationId")));
+        this.location = currrentLocation;
         this.startTime = LocalTime.now();
         isFullHour = (boolean) newOrderData.get("isFullHour");
         this.endTime = startTime.plusMinutes(isFullHour ? 60 : 30);
@@ -74,7 +73,7 @@ public class NewOrderData {
         usedKinds.forEach((k, v) -> {
             List<Vehicle> kindVehicles = vehicleRepository.findNotUsedVehiclesForKindAndLocation(location, k);
             if (kindVehicles.size() < v)
-                throw new NotEnoughVehiclesException(k.getName());
+                throw new NotEnoughVehiclesException(k);
             vehicles.addAll(kindVehicles.subList(0, v));
         });
         return vehicles;

@@ -13,4 +13,7 @@ public interface OrderRepository  extends JpaRepository<Order, Long> {
     @Query("select o from Order o WHERE o.location = :location AND o.orderDate = CURDATE() AND NOT o.isFinalized")
     List<Order> getActiveOrdersInLocation(@Param("location") Location location);
 
+    @Query("select o from Order o WHERE o.location = :location AND o.orderDate = CURDATE() AND o.isFinalized")
+    List<Order> getFinalizedOrdersInLocation(@Param("location") Location location);
+
 }

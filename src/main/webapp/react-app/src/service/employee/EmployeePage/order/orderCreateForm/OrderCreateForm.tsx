@@ -56,11 +56,6 @@ function OrderCreateForm() {
                 idn: "isFullHour",
                 type: "boolean",
                 caption: "Cała godzina?"
-            }, {
-                idn: "locationId",
-                type: "select",
-                caption: "Punkt",
-                selectValues: locations.map(location => ({ idn: location.locationId, caption: location.name }))
             },
             ...kinds.map(kind => ({ idn: "kind_" + kind.vehicleKindId, type: "number" as "number", caption: kind.name }))]} />
         </div>);

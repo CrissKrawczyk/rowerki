@@ -8,6 +8,7 @@ import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Entity
 @Getter
@@ -33,6 +34,14 @@ public class WorkDay {
     @Column
     @DateTimeFormat(pattern = "DD-MM-YYYY")
     private LocalDate date;
+
+    @DateTimeFormat(pattern = "HH:mm:ss")
+    @Column
+    private LocalTime startTime;
+
+    @DateTimeFormat(pattern = "HH:mm:ss")
+    @Column
+    private LocalTime endTime;
 
     @Column
     private boolean ended;

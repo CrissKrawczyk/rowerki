@@ -21,8 +21,8 @@ public class VehicleController {
 
     @PostMapping
     public ResponseEntity<Vehicle> createVehicle(@RequestBody Vehicle vehicle) {
-        Vehicle savedVehicle = vehicleService.createVehicle(vehicle);
-        return new ResponseEntity<>(savedVehicle, HttpStatus.CREATED);
+        vehicleService.createVehicle(vehicle);
+        return new ResponseEntity<>(null, HttpStatus.CREATED);
     }
 
     @GetMapping("{id}")
@@ -53,8 +53,8 @@ public class VehicleController {
 
     @PutMapping("{id}")
     public ResponseEntity<Vehicle> updateVehicleById(@PathVariable("id") Long vehicleId, @RequestBody Vehicle updatedVehicle) {
-        Vehicle vehicle = vehicleService.updateVehicle(vehicleId, updatedVehicle);
-        return ResponseEntity.ok(vehicle);
+        vehicleService.updateVehicle(vehicleId, updatedVehicle);
+        return ResponseEntity.ok(null);
     }
 
     @DeleteMapping("{id}")

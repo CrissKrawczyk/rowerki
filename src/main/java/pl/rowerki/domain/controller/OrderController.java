@@ -7,6 +7,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import pl.rowerki.businessLogic.NotEnoughVehiclesException;
 import pl.rowerki.domain.entity.Location;
 import pl.rowerki.domain.entity.Order;
 import pl.rowerki.domain.entity.WorkDay;
@@ -29,9 +30,21 @@ public class OrderController {
     @RequestMapping(value = "/startNewOrder", method = RequestMethod.POST,
             consumes = {"application/json"})
     @ResponseBody
-    public ResponseEntity<Order> createOrder(@RequestBody HashMap<String, Object> dataHashMap) {
-        Order savedOrder = orderService.createOrder(dataHashMap);
-        return new ResponseEntity<>(savedOrder, HttpStatus.CREATED);
+    public ResponseEntity createOrder(@RequestBody HashMap<String, Object> dataHashMap, Authentication authentication) {
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        WorkDay currentWorkDay = workDayService.getCurrentWorkDay(userDetails);
+        if (currentWorkDay == null)
+            return ResponseEntity.ok(null);
+        Location currentLocation = currentWorkDay.getLocation();
+        Order savedOrder;
+        try {
+            savedOrder = orderService.createOrder(dataHashMap, currentLocation);
+        } catch (NotEnoughVehiclesException notEnoughVehiclesException) {
+            return ResponseEntity
+                    .status(HttpStatus.FORBIDDEN)
+                    .body(notEnoughVehiclesException.getMessage());
+        }
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "/currentOrders")

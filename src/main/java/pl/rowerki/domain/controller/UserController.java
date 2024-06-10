@@ -55,16 +55,6 @@ public class UserController {
         return ResponseEntity.ok("Employee deleted successfully");
     }
 
-    @GetMapping("{login}/{password}")
-    public ResponseEntity<User> getUserByLoginPassword(@PathVariable("login") String userLogin, @PathVariable("password") String userPassword) {
-        User user = userService.getUserByLoginPassword(userLogin, userPassword);
-        if (user != null) {
-            return ResponseEntity.ok(user);
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
-    }
-
     @GetMapping("isAdmin")
     @ResponseBody
     public Map<String, Boolean> isCurrentUserAdmin(Authentication authentication) {

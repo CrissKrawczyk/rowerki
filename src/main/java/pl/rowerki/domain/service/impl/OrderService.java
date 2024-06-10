@@ -15,14 +15,18 @@ import java.util.List;
 public class OrderService {
     private OrderRepository orderRepository;
 
-    public Order createOrder(HashMap<String, Object> newOrderDataMap) {
-        NewOrderData newOrderData = new NewOrderData(newOrderDataMap);
+    public Order createOrder(HashMap<String, Object> newOrderDataMap, Location currrentLocation) {
+        NewOrderData newOrderData = new NewOrderData(newOrderDataMap, currrentLocation);
         Order newOrder = newOrderData.createOrder();
         return orderRepository.save(newOrder);
     }
 
     public List<Order> getActiveOrdersInLocation(Location location) {
         return orderRepository.getActiveOrdersInLocation(location);
+    }
+
+    public List<Order> getFinalizedOrdersInLocation(Location location) {
+        return orderRepository.getFinalizedOrdersInLocation(location);
     }
 
     public void endOrder(Long orderId) {

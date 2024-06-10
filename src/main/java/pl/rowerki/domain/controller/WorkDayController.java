@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import pl.rowerki.businessLogic.DayDataStats;
 import pl.rowerki.businessLogic.DayNotStartedException;
 import pl.rowerki.domain.entity.Location;
 import pl.rowerki.domain.entity.WorkDay;
@@ -18,6 +19,7 @@ import pl.rowerki.domain.service.impl.OrderService;
 import pl.rowerki.domain.service.impl.WorkDayService;
 
 import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/api/workDay")
@@ -57,6 +59,16 @@ public class WorkDayController {
         if (currentWorkDay.isEnded())
             return ResponseEntity.ok("ended");
         return ResponseEntity.ok("onGoing");
+    }
+
+    @RequestMapping(value = "/endDayStats", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> endDayStats(Authentication authentication) {
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        WorkDay currentWorkDay = workDayService.getCurrentWorkDay(userDetails);
+        if (currentWorkDay == null || !currentWorkDay.isEnded())
+            return ResponseEntity.ok(new HashMap<>());
+        return ResponseEntity.ok(new DayDataStats(currentWorkDay).getStats());
     }
 
 

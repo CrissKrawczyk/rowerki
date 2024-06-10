@@ -3,6 +3,7 @@ package pl.rowerki.security;
 import jakarta.servlet.DispatcherType;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -24,7 +25,15 @@ public class SecurityConfiguration {
                         .requestMatchers("/service/admin/**").hasAuthority("admin")
                         .requestMatchers("/service/employee/**").hasAuthority("employee")
                         .requestMatchers("/service/**").authenticated()
-                        .requestMatchers("/api/**").permitAll())
+                        .requestMatchers(HttpMethod.GET,"/api/locations/**").hasAuthority("employee")
+                        .requestMatchers("/api/locations/**").hasAuthority("admin")
+                        .requestMatchers("/api/orders/**").hasAuthority("employee")
+                        .requestMatchers("/api/users/isAdmin").hasAuthority("employee")
+                        .requestMatchers("/api/users/**").hasAuthority("admin")
+                        .requestMatchers("/api/vehicles/**").hasAuthority("admin")
+                        .requestMatchers(HttpMethod.GET,"/api/vehicleKinds/**").hasAuthority("employee")
+                        .requestMatchers("/api/vehicleKinds/**").hasAuthority("admin")
+                        .requestMatchers("/api/workDay/**").hasAuthority("employee"))
                 .formLogin((form) -> form
                         .defaultSuccessUrl("/service", true)
                         .permitAll()

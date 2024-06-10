@@ -52,6 +52,7 @@ function FormComponent<V extends object>(props: FormComponentProps) {
     const { id } = useParams();
     const [row, setRow] = useState<V>();
     const [loading, setLoading] = useState(false);
+    const [error, setError] = useState<string | undefined>();
 
     const navigator = useNavigate();
 
@@ -64,12 +65,17 @@ function FormComponent<V extends object>(props: FormComponentProps) {
         fetch(`/api/${props.fetchLink}/` + id)
             .then(response => {
                 if (!response.ok) {
-                    throw new Error('Network response was not ok');
+                    return response.text();
                 }
                 return response.json();
             })
-            .then((data: V) => {
-                setRow(data);
+            .then((data: V | string) => {
+                if (typeof data == 'string')
+                    setError(data)
+                else {
+                    setRow(data);
+                    setError(undefined);
+                }
                 setLoading(false);
             })
             .catch(error => {
@@ -82,10 +88,15 @@ function FormComponent<V extends object>(props: FormComponentProps) {
         fetch(`/api/${props.fetchLink}${id ? "/" + id : ""}`, { method: putposter, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(row) })
             .then(response => {
                 if (!response.ok) {
-                    throw new Error('Network response was not ok');
+                    return response.text();
                 }
+                setError(undefined)
                 navigator(-1);
                 return response.json();
+            })
+            .then((error: string) => {
+                if (error)
+                    setError(error)
             })
             .catch(error => {
                 console.error('Error fetching data:', error);
@@ -132,6 +143,7 @@ function FormComponent<V extends object>(props: FormComponentProps) {
                     <button className="btn btn-primary w-100" onClick={() => addLocation(id ? "PUT" : "POST")}>{!id ? 'Dodaj' : 'Edytuj'}</button>
                 </div>
                 {id && <div className="col"><button className="btn btn-danger w-100" onClick={() => deleteLocation()} >Usuń</button></div>}
+                {error && <p style={{ color: 'red' }}>{error}</p>}
             </div>
         </div>
     );

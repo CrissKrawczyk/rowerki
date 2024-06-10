@@ -15,6 +15,7 @@ import pl.rowerki.domain.repository.WorkDayRepository;
 import pl.rowerki.domain.service.impl.UserService;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 @Service
@@ -38,6 +39,7 @@ public class WorkDayService {
         workDay.setEnded(false);
         workDay.setLocation(location);
         workDay.setEmployee(user);
+        workDay.setStartTime(LocalTime.now());
         return workDayRepository.save(workDay);
     }
 
@@ -49,6 +51,7 @@ public class WorkDayService {
         if (!orderService.getActiveOrdersInLocation(currentLocation).isEmpty())
             throw new DayNotStartedException("");
         currentWorkDay.setEnded(true);
+        currentWorkDay.setEndTime(LocalTime.now());
         workDayRepository.save(currentWorkDay);
     }
 }
