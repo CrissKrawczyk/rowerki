@@ -17,7 +17,7 @@ public class DayDataStats {
 
     public DayDataStats(WorkDay workDay) {
         if (workDay.getEndTime() == null)
-            throw new DayNotEndedException("");
+            throw new DayNotEndedException("Nie można wyliczyć podsumowania dla trwającego dnia pracy");
         long minutes = workDay.getStartTime().until(workDay.getEndTime(), ChronoUnit.MINUTES);
         workTime = String.format("%d:%02d", minutes / 60, minutes % 60);
         OrderService orderService = ContextAwareClass.getBean(OrderService.class);
