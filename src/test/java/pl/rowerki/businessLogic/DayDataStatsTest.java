@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 import pl.rowerki.SpringAdvancedApplication;
 import pl.rowerki.domain.entity.Location;
 import pl.rowerki.domain.entity.Order;
@@ -30,7 +31,9 @@ public class DayDataStatsTest {
 
     @Autowired
     OrderRepository orderRepository;
+
     @Test
+    @Transactional
     public void testDayDataStatsValues() {
         Location location = createLocation();
         createOrder(location, 4.5f);
@@ -42,6 +45,7 @@ public class DayDataStatsTest {
     }
 
     @Test
+    @Transactional
     public void testDayDataStatsOnNotEndedDay() {
         Location location = createLocation();
         WorkDay workDay = createOngoingWorkDay(location);
