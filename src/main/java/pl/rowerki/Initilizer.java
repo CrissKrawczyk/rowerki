@@ -28,5 +28,13 @@ public class Initilizer implements CommandLineRunner {
         user.setEmail("user");
         user.setLogin("user");
         this.repository.save(user);
+        User admin = new User();
+        admin.setFirstName("admin");
+        admin.setLastName("admin");
+        admin.setPassword(passwordEncoder.encode("admin"));
+        admin.setIsAdmin(true);
+        admin.setEmail("admin");
+        admin.setLogin("admin");
+        this.repository.save(admin);
     }
 }

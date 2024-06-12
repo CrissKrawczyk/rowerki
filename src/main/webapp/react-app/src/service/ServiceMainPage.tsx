@@ -12,8 +12,8 @@ function ServiceMainPage(props: { isAdmin: boolean }) {
     return <></>
 
   return <>
-    <Link to={"employee"} >Przejdź do strony pracownika</Link>
-    {props.isAdmin && <Link to={"admin"} >Przejdź do strony admina</Link>}
+    <li className="nav-item"><Link className="nav-link" to={"employee"} >Przejdź do strony pracownika</Link></li>
+    {props.isAdmin && <li className="nav-item"><Link className="nav-link" to={"admin"} >Przejdź do strony admina</Link></li>}
   </>
 }
 

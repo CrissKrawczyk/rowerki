@@ -140,7 +140,7 @@ function FormComponent<V extends object>(props: FormComponentProps) {
             {props.fields.map(field => getField(field))}
             <div className="row mb-2">
                 <div className="col">
-                    <button className="btn btn-primary w-100" onClick={() => addLocation(id ? "PUT" : "POST")}>{!id ? 'Dodaj' : 'Edytuj'}</button>
+                    <button className="btn btn-success w-100" onClick={() => addLocation(id ? "PUT" : "POST")}>{!id ? 'Dodaj' : 'Edytuj'}</button>
                 </div>
                 {id && <div className="col"><button className="btn btn-danger w-100" onClick={() => deleteLocation()} >Usuń</button></div>}
                 {error && <p style={{ color: 'red' }}>{error}</p>}

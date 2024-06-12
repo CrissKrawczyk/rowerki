@@ -12,9 +12,9 @@ function ServiceMenu(props: ServiceMenuProps) {
 
     return <div className='container'>
         <h2 className='title'>{title}</h2>
-        <ul>
+        <ul className = 'list-group'>
             {
-                options.map(option => <li><ServiceMenuOption {...option} /></li>)
+                options.map(option => <li className ="list-group-item"><ServiceMenuOption {...option} /></li>)
             }
         </ul>
     </div>
