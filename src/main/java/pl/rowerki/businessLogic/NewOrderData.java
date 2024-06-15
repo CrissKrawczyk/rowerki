@@ -41,8 +41,10 @@ public class NewOrderData {
         this.orderDate = LocalDate.now();
         List<VehicleKind> kinds = vehicleKindService.getAllVehicleKinds();
         kinds.forEach(kind -> {
-            int kindQuantity = (int) newOrderData.get("kind_" + kind.getVehicleKindId());
-            usedKinds.put(kind, kindQuantity);
+            Object kindQuantity = newOrderData.get("kind_" + kind.getVehicleKindId());
+            if (kindQuantity == null)
+                return;
+            usedKinds.put(kind, (int) kindQuantity);
         });
     }
 
@@ -59,12 +61,12 @@ public class NewOrderData {
         return newOrder;
     }
 
-    private Float calcPrice() {
+    public Float calcPrice() {
         return usedKinds.entrySet().stream().map((e) -> {
-            VehicleKind kind = e.getKey();
-            float kindPrice = isFullHour ? kind.getHourPrice() : kind.getHalfHourPrice();
-            return kindPrice * e.getValue();
-        })
+                    VehicleKind kind = e.getKey();
+                    float kindPrice = isFullHour ? kind.getHourPrice() : kind.getHalfHourPrice();
+                    return kindPrice * e.getValue();
+                })
                 .reduce(0f, Float::sum);
     }
 
