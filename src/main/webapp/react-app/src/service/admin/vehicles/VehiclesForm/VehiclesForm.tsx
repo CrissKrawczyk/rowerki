@@ -43,7 +43,7 @@ function VehiclesForm() {
         return "Loading"
 
     return (
-        <div className="container border border-primary border-3 p-3 mt-3 rounded">
+        <div className="container border border-primary border-3 p-3 mt-3 rounded bg-light">
             <FormComponent<Vehicle> fetchLink="vehicles" fields={[{
                 idn: "uszkodzony",
                 type: "boolean",

@@ -41,11 +41,11 @@ public class VehicleController {
         List result = new ArrayList();
         vehicles.forEach(vehicle -> {
             Map parsed = new HashMap();
-            parsed.put("vehicleId", vehicle.getVehicleId());
-            parsed.put("kindName", vehicle.getKind() != null ? vehicle.getKind().getName() : "");
-            parsed.put("locationName", vehicle.getLocation() != null ? vehicle.getLocation().getName() : "");
-            parsed.put("kindId", vehicle.getKind() != null ? vehicle.getKind().getVehicleKindId() : "");
             parsed.put("uszkodzony", vehicle.getUszkodzony());
+            parsed.put("kindId", vehicle.getKind() != null ? vehicle.getKind().getVehicleKindId() : "");
+            parsed.put("locationName", vehicle.getLocation() != null ? vehicle.getLocation().getName() : "");
+            parsed.put("kindName", vehicle.getKind() != null ? vehicle.getKind().getName() : "");
+            parsed.put("vehicleId", vehicle.getVehicleId());
             result.add(parsed);
         });
         return ResponseEntity.ok(result);

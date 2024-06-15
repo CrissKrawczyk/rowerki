@@ -27,3 +27,12 @@ export interface Order {
     endTime: string;
     price: number;
 }
+
+export interface User {
+    email: string;
+    login: string;
+    firstName: string;
+    lastName: string;
+    password: string;
+    isAdmin: boolean;
+}

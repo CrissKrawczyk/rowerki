@@ -26,8 +26,9 @@ function PageComponent<V>(props: PageComponentProps) {
             })
             .then(data => {
                 data.forEach((row: any) => Object.keys(row).forEach((col) => props.select.includes(col) || delete row[col]));
-                console.log(data);
-                setRows(data);
+                const sortData = data.map((row: any) => Object.fromEntries( Object.entries(row).sort( ([a,], [b, ]) => props.select.indexOf(a) - props.select.indexOf(b) ) ));
+                console.log(sortData);
+                setRows(sortData);
                 setLoading(false);
             })
             .catch(error => {

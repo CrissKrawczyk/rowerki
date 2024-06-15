@@ -16,7 +16,6 @@ function SelectField(props: SelectFieldProps) {
         {field.caption && <p>{field.caption}</p>}
         <div className="col">
             <FormControl fullWidth>
-                <InputLabel id={field.idn + "-label"}>{field.caption}</InputLabel>
                 <Select
                     labelId={field.idn + "-label"}
                     id={field.idn}

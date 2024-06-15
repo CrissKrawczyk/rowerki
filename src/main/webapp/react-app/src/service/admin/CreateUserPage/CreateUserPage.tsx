@@ -1,53 +1,36 @@
 import React, { useState } from 'react';
+import FormComponent from '../../ComponentTemplates/FormComponent';
+import { User } from '../../../interfaces';
 
 function CreateUserPage() {
-    const [login, setLogin] = useState('');
-    const [password, setPassword] = useState('');
-    const [email, setEmail] = useState('');
-    const [firstName, setFirstName] = useState('');
-    const [lastName, setLastName] = useState('');
-    const [isAdmin, setIsAdmin] = useState(false);
-
-    const handleCreateUser = () => {
-        const userData = {
-            login,
-            password,
-            email,
-            firstName,
-            lastName,
-            isAdmin
-        };
-
-        fetch('/api/users', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(userData)
-        })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-            })
-            .catch(error => {
-                console.error('Error creating user:', error);
-            });
-    };
 
     return (
-        <div>
-            <h2>Create User</h2>
-            <input type="text" value={login} onChange={e => setLogin(e.target.value)} placeholder="Login" />
-            <input type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Password" />
-            <input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="Email" />
-            <input type="text" value={firstName} onChange={e => setFirstName(e.target.value)} placeholder="First Name" />
-            <input type="text" value={lastName} onChange={e => setLastName(e.target.value)} placeholder="Last Name" />
-            <label>
-                Is Admin:
-                <input type="checkbox" checked={isAdmin} onChange={e => setIsAdmin(e.target.checked)} />
-            </label>
-            <button onClick={handleCreateUser}>Create User</button>
+        <div className="container border border-primary border-3 p-3 mt-3 rounded bg-light">
+            <FormComponent<User> fetchLink="users" fields={[{
+                idn: "email",
+                type: "string",
+                caption: "Email"
+            }, {
+                idn: "firstName",
+                type: "string",
+                caption: "Imię",
+            }, {
+                idn: "lastName",
+                type: "string",
+                caption: "Nazwisko",
+            }, {
+                idn: "login",
+                type: "string",
+                caption: "Login",
+            }, {
+                idn: "password",
+                type: "string",
+                caption: "Hasło",
+            }, {
+                idn: "isAdmin",
+                type: "boolean",
+                caption: "Admin?",
+            }]} />
         </div>
     );
 }

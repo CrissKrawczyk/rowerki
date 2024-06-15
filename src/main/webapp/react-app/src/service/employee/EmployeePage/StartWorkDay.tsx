@@ -44,14 +44,14 @@ function StartWorkDay(props: { onStart: Function }) {
     if (!locations)
         return "Loading"
 
-    return <div>
+    return <div className = "container border border-primary border-3 p-3 mt-3 rounded bg-light">
         <SelectField field={{
             type: "select",
             caption: "Wybierz punkt",
             idn: "locationId",
             selectValues: locations.map(location => ({ idn: location.locationId, caption: location.name }))
         }} value={location} onChange={(v) => setLocation(v as number)} />
-        <button onClick={startDay}>Rozpocznij dzień</button>
+        <button className="btn btn-success" onClick={startDay}>Rozpocznij dzień</button>
     </div>
 }
 

@@ -32,9 +32,9 @@ function EndedDaySummary() {
     if (!workDayStatus)
         return "Loading"
 
-    return <div>
-        <p>Przepracowany czas: {workDayStatus.workTime}</p>
-        <p>Utarg: {workDayStatus.money}zł</p>
+    return <div className ="container border border-primary border-3 p-3 mt-3 rounded bg-light">
+            <p>Przepracowany czas: {workDayStatus.workTime}</p>
+            <p>Utarg: {workDayStatus.money}zł</p>
     </div>
 }
 
