@@ -9,15 +9,12 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 import pl.rowerki.SpringAdvancedApplication;
 import pl.rowerki.domain.entity.*;
-import pl.rowerki.domain.repository.OrderRepository;
 import pl.rowerki.domain.service.LocationService;
 import pl.rowerki.domain.service.VehicleService;
 import pl.rowerki.domain.service.impl.VehicleKindService;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
@@ -68,6 +65,39 @@ public class NewOrderDataTest {
         assert order.getVehicles().size() == 2;
         assert !order.getIsFinalized();
         assert order.getLocation() == location;
+    }
+
+    @Test
+    @Transactional
+    public void findVehiclesTest() {
+        Location location = createLocation();
+        VehicleKind vehicleKind = createKind();
+        Vehicle vehicle1 = createVehicle(vehicleKind, location);
+        Vehicle vehicle2 = createVehicle(vehicleKind, location);
+        HashMap<String, Object> newOrderDataMap = new HashMap<>();
+        newOrderDataMap.put("isFullHour", true);
+        newOrderDataMap.put("kind_" + vehicleKind.getVehicleKindId(), 2);
+        NewOrderData newOrderData = new NewOrderData(newOrderDataMap, location);
+        List<Vehicle> vehicleList = newOrderData.findVehicles();
+        assert vehicleList.size() == 2;
+        assert vehicleList.contains(vehicle1);
+        assert vehicleList.contains(vehicle2);
+    }
+
+    @Test
+    @Transactional
+    public void throwExceptionOnNotEnoughVehiclesTest() {
+        Location location = createLocation();
+        VehicleKind vehicleKind = createKind();
+        createVehicle(vehicleKind, location);
+        HashMap<String, Object> newOrderDataMap = new HashMap<>();
+        newOrderDataMap.put("isFullHour", true);
+        newOrderDataMap.put("kind_" + vehicleKind.getVehicleKindId(), 2);
+        NewOrderData newOrderData = new NewOrderData(newOrderDataMap, location);
+        Exception exception = assertThrows(NotEnoughVehiclesException.class, newOrderData::findVehicles);
+        String expectedMessage = "Brak wystarczającej liczby pojazdów typu " + vehicleKind.getName();
+        String actualMessage = exception.getMessage();
+        assertTrue(actualMessage.contains(expectedMessage));
     }
 
     private Location createLocation() {
