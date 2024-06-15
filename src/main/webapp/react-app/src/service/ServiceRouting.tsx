@@ -34,26 +34,43 @@ function ServiceRouting() {
   }, [])
 
   return <>
-    <a href="/logout">Wyloguj</a>
-    <Routes>
-      <Route index element={<ServiceMainPage isAdmin={isAdmin} />} />
-      <Route path='/admin/createUser' element={<CreateUserPage />} />
-      <Route path='/admin' element={<AdminPage />} />
-      <Route path='/employee' element={<EmployeePage />} />
-      <Route path='/employee/startOrder' element={<OrderCreateForm />} />
-      <Route path='/admin/location' element={<LocationsPage />} />
-      <Route path='/admin/locationForm' element={<LocationForm />} />
-      <Route path='/admin/locationForm/:id' element={<LocationForm />} />
-      <Route path='/admin/vehicle' element={<VehiclesPage />} />
-      <Route path='/admin/VehiclesForm' element={<VehiclesForm />} />
-      <Route path='/admin/VehiclesForm/:id' element={<VehiclesForm />} />
-      <Route path='/admin/vehicleKinds' element={<VehiclesKindPage />} />
-      <Route path='/admin/vehicleKindForm' element={<VehiclesKindsForm />} />
-      <Route path='/admin/vehicleKindForm/:id' element={<VehiclesKindsForm />} />
-    </Routes>
-    <button className="btn btn-info" onClick={() => navigate(-1)}>
-      Wróć
-    </button>
+     <nav className = "navbar navbar-expand-lg navbar-light bg-light mb-3">
+        <div className="container-fluid">
+            <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span className="navbar-toggler-icon"></span>
+            </button>
+            <div className ="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li className="nav-item"><a className="nav-link" href="/logout">Wyloguj</a></li>
+                    <Routes>
+                      <Route index element={<ServiceMainPage isAdmin={isAdmin} />} />
+                    </Routes>
+                </ul>
+                <ul className="navbar-nav">
+                    <li>
+                        <button className="btn btn-info" onClick={() => navigate(-1)}>
+                        Wróć
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+     </nav>
+     <Routes>
+        <Route path='/admin/createUser' element={<CreateUserPage />} />
+        <Route path='/admin' element={<AdminPage />} />
+        <Route path='/employee' element={<EmployeePage />} />
+        <Route path='/employee/startOrder' element={<OrderCreateForm />} />
+        <Route path='/admin/location' element={<LocationsPage />} />
+        <Route path='/admin/locationForm' element={<LocationForm />} />
+        <Route path='/admin/locationForm/:id' element={<LocationForm />} />
+        <Route path='/admin/vehicle' element={<VehiclesPage />} />
+        <Route path='/admin/VehiclesForm' element={<VehiclesForm />} />
+        <Route path='/admin/VehiclesForm/:id' element={<VehiclesForm />} />
+        <Route path='/admin/vehicleKinds' element={<VehiclesKindPage />} />
+        <Route path='/admin/vehicleKindForm' element={<VehiclesKindsForm />} />
+        <Route path='/admin/vehicleKindForm/:id' element={<VehiclesKindsForm />} />
+     </Routes>
   </>
 }
 

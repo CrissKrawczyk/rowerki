@@ -9,7 +9,7 @@ function VehiclesKindPage() {
 
     return (<div className="container">
         <h2 className="text-center m-3">Rodzaje pojazdów</h2>
-        <button className="btn btn-primary m-2" onClick={() => navigator("../admin/vehicleKindForm")}>Dodaj rodzaj</button>
+        <button className="btn btn-light m-2" onClick={() => navigator("../admin/vehicleKindForm")}>Dodaj rodzaj</button>
         <PageComponent<VehicleKind> fetchLink="vehicleKinds" formLink="admin/vehicleKindForm" select={["name", "seats"]} colNames={["Nazwa", "Ilość siedzeń"]} id="vehicleKindId" />
     </div>);
 }

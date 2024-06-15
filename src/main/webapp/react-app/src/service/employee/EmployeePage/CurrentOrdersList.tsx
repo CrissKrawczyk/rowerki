@@ -40,33 +40,40 @@ function CurrentOrdersList(props: { reloadPage: Function }) {
         return "Loading"
 
 
-    return <><table className="table table-bordered text-center align-middle">
-        <thead>
-            <tr className="align-middle">
-                <th>Numer zamówienia</th>
-                <th>Godzina rozpoczęcia</th>
-                <th>Godzina zakończenia</th>
-                <th>Cena</th>
-                <th>Zakończ</th>
-            </tr>
-        </thead>
-        <tbody>
-            {orders.map(order => {
-                return <tr>
-                    <td>{order.orderId}</td>
-                    <td>{order.startTime}</td>
-                    <td>{order.endTime}</td>
-                    <td>{order.price}</td>
-                    <td><button onClick={() => finalizeOrder(order.orderId)}>Zakończ przejazd</button></td>
-                </tr>
-            })}
-        </tbody>
-    </table>
-        <ServiceMenu title='Panel pracownika' options={[
-            { text: "Rozpocznij przejazd", linkTo: "startOrder" },
-        ]}
-        />
-        <button onClick={endWorkDay}>Zakończ dzień pracy</button></>
+    return <>
+    <div className="row">
+        <div className="col-9 px-2">
+            <table className="table table-bordered text-center align-middle mx-2">
+                <thead>
+                    <tr className="align-middle">
+                        <th>Numer zamówienia</th>
+                        <th>Godzina rozpoczęcia</th>
+                        <th>Godzina zakończenia</th>
+                        <th>Cena</th>
+                        <th>Zakończ</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {orders.map(order => {
+                        return <tr>
+                            <td>{order.orderId}</td>
+                            <td>{order.startTime}</td>
+                            <td>{order.endTime}</td>
+                            <td>{order.price}</td>
+                            <td><button className="btn btn-danger" onClick={() => finalizeOrder(order.orderId)}>Zakończ przejazd</button></td>
+                        </tr>
+                    })}
+                </tbody>
+            </table>
+        </div>
+        <div className="col-3 px-2">
+            <ServiceMenu title='Panel pracownika' options={[
+                { text: "Rozpocznij przejazd", linkTo: "startOrder" },
+                { text: "Zakończ dzień pracy", linkTo: "endWorkDay"}
+            ]}/>
+        </div>
+    </div>
+    </>
 }
 
 export default CurrentOrdersList;

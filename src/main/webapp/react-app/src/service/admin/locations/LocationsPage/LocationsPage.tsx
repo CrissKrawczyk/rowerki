@@ -19,7 +19,7 @@ function LocationsPage() {
 
     return (<div className="container">
         <h2 className="text-center m-3"> Punkty</h2>
-        <button className="btn btn-primary m-2" onClick={() => navigator("../admin/LocationForm")}>Dodaj Lokację</button>
+        <button className="btn btn-light m-2" onClick={() => navigator("../admin/LocationForm")}>Dodaj Lokację</button>
         <PageComponent<Location> fetchLink="locations" formLink="admin/LocationForm" select={["locationId", "name", "city", "street"]} colNames={["Id", "Nazwa", "Miejscowosc", "Ulica"]} id="locationId" />
     </div>);
 }
