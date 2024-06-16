@@ -47,8 +47,14 @@ function VehiclesForm() {
             <FormComponent<Vehicle> fetchLink="vehicles" fields={[{
                 idn: "uszkodzony",
                 type: "boolean",
-                caption: "uszkodzony"
-            }, {
+                caption: "Uszkodzony"
+            },
+            {
+                idn: "isReady",
+                type: "boolean",
+                caption: "Dostępny"
+            },
+                {
                 idn: "vehicle_kind_id_dup",
                 type: "select",
                 caption: "Rodzaj",

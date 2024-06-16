@@ -45,6 +45,7 @@ public class VehicleServiceImpl implements VehicleService {
         Vehicle vehicle = vehicleRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Vehicle with id " + id + " not found"));
         vehicle.setLocation(updatedVehicle.getLocation());
         vehicle.setUszkodzony(updatedVehicle.getUszkodzony());
+        vehicle.setIsReady(updatedVehicle.getIsReady());
         setKind(updatedVehicle, vehicle);
         setLocation(updatedVehicle, vehicle);
         return vehicleRepository.save(vehicle);
